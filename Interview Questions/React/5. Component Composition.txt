@@ -1,0 +1,38 @@
+//component for the Higher order component
+
+import React, { useState } from 'react';
+
+function withVisibility(WrappedComponent) {
+  return function WithVisibilityComponent(props) {
+    const [isVisible, setIsVisible] = useState(true);
+
+    const toggleVisibility = () => {
+      setIsVisible(!isVisible);
+    };
+
+    return (
+      <WrappedComponent
+        {...props}
+        isVisible={isVisible}
+        toggleVisibility={toggleVisibility}
+      />
+    );
+  };
+}
+
+
+
+//function using that higher order component
+
+function MyComponent({ isVisible, toggleVisibility }) {
+  return (
+    <div>
+      <button onClick={toggleVisibility}>
+        {isVisible ? 'Hide' : 'Show'} Content
+      </button>
+      {isVisible && <div>This is the content to show or hide.</div>}
+    </div>
+  );
+}
+
+export default withVisibility(MyComponent);

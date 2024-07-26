@@ -1,0 +1,45 @@
+//using memo
+
+import React, { useMemo } from 'react';
+
+const TestComponent = ({ value }) => {
+  const computedValue = useMemo(() => {
+    
+    return value * 2;
+  }, [value]);
+
+  return <div>{computedValue}</div>;
+};
+
+//lazyloading
+
+import React, { Suspense, lazy } from 'react';
+
+const LazyComponent = lazy(() => import('./LazyComponent'));
+
+const App = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <LazyComponent />
+  </Suspense>
+);
+
+
+//virtualization of large lists
+
+import React from 'react';
+import { FixedSizeList as List } from 'react-window';
+
+const Row = ({ index, style }) => (
+  <div style={style}>Item {index}</div>
+);
+
+const App = () => (
+  <List
+    height={150}
+    itemCount={1000}
+    itemSize={35}
+    width={300}
+  >
+    {Row}
+  </List>
+);

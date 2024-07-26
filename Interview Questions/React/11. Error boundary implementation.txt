@@ -1,0 +1,58 @@
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+   
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    
+    console.error('Error caught by ErrorBoundary:', error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+     
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+
+
+class ProblematicComponent extends React.Component {
+  componentDidMount() {
+      throw new Error('Oops! Something went wrong.');
+  }
+
+  render() {
+    return <div>This component is problematic!</div>;
+  }
+}
+
+function App() {
+  return (
+    <div>
+      <h1>My React App</h1>
+      <ErrorBoundary>
+        <ProblematicComponent />
+      </ErrorBoundary>
+    </div>
+  );
+}
+
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);

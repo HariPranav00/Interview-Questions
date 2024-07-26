@@ -1,0 +1,48 @@
+function Parent() {
+  return (
+    <div>
+      <Child1 />
+      <Child2 />
+    </div>
+  );
+}
+
+function Child1() {
+  const [count, setCount] = useState(0);
+  
+  return (
+    <button onClick={() => setCount(count + 1)}>Increment</button>
+  );
+}
+
+function Child2() {
+  const [count] = useState(0);
+  
+  return <p>Count: {count}</p>;
+}
+
+//Restructuring the component
+
+function Parent() {
+  const [count, setCount] = useState(0);
+
+  const incrementCount = () => setCount(count + 1);
+
+  return (
+    <div>
+      <Child1 count={count} onIncrement={incrementCount} />
+      <Child2 count={count} />
+    </div>
+  );
+}
+
+function Child1({ count, onIncrement }) {
+  return (
+    <button onClick={onIncrement}>Increment</button>
+  );
+}
+
+function Child2({ count }) {
+  return <p>Count: {count}</p>;
+}
+

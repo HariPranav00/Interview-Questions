@@ -1,0 +1,59 @@
+import React, { createContext, useReducer, useContext } from 'react';
+
+const initialState = {
+  count: 0
+};
+
+const AppContext = createContext();
+
+const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
+
+const appReducer = (state, action) => {
+  switch (action.type) {
+    case INCREMENT:
+      return { count: state.count + 1 };
+    case DECREMENT:
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+};
+
+export const AppProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(appReducer, initialState);
+
+  return (
+    <AppContext.Provider value={{ state, dispatch }}>
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+export const useAppContext = () => {
+  return useContext(AppContext);
+};
+
+export const increment = () => ({ type: INCREMENT });
+export const decrement = () => ({ type: DECREMENT });
+
+
+
+// Connecting the components
+
+import React from 'react';
+import { useAppContext, increment, decrement } from './AppContext';
+
+const Counter = () => {
+  const { state, dispatch } = useAppContext();
+
+  return (
+    <div>
+      <h1>Count: {state.count}</h1>
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
+    </div>
+  );
+};
+
+export default Counter;

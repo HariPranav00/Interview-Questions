@@ -1,0 +1,4 @@
+1. Calculate the length of the array length.
+2. Use the formula to calculate the sum of integers from 1 to len+1 ((len+1) * (len+2)) / 2.
+3. Calculate the sum of all elements in the array.
+4. Subtract the sum of the array elements from total to get the missing number.

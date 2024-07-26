@@ -1,0 +1,118 @@
+//Creating 3 Pages
+
+import React from 'react';
+
+const Home = () => {
+  return (
+    <div>
+      <h2>Home Page</h2>
+      <p>Home page!</p>
+    </div>
+  );
+};
+
+export default Home;
+
+import React from 'react';
+
+const About = () => {
+  return (
+    <div>
+      <h2>About Page</h2>
+      <p>This is the about page.</p>
+    </div>
+  );
+};
+
+export default About;
+
+import React from 'react';
+
+const Contact = () => {
+  return (
+    <div>
+      <h2>Contact Page</h2>
+      <p>This is the contact page.</p>
+    </div>
+  );
+};
+
+export default Contact;
+
+//Layout for the pages
+
+import React from 'react';
+import { Outlet, Link } from 'react-router-dom';
+
+const Layout = () => {
+  return (
+    <div>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact</Link>
+          </li>
+        </ul>
+      </nav>
+      <hr />
+      <Outlet />
+    </div>
+  );
+};
+
+export default Layout;
+
+//Nested Routes
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './Home';
+import About from './About';
+import Contact from './Contact';
+import Layout from './Layout';
+
+ReactDOM.render(
+  <Router>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
+      </Route>
+    </Routes>
+  </Router>,
+  document.getElementById('root')
+);
+
+
+//programmatic navigations
+
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const Home = () => {
+  const navigate = useNavigate();
+
+  const goToAbout = () => {
+    navigate('/about');
+  };
+
+  return (
+    <div>
+      <h2>Home Page</h2>
+      <p>Welcome to the home page!</p>
+      <button onClick={goToAbout}>Go to About</button>
+    </div>
+  );
+};
+
+export default Home;
+
+

@@ -1,0 +1,30 @@
+const asyncOperation = (name, delay) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (Math.random() > 0.1) {
+                resolve(`Operation ${name} completed`);
+            } else {
+                reject(`Operation ${name} failed`);
+            }
+        }, delay);
+    });
+};
+
+const performParallelOperationsWithAsyncAwait = async () => {
+    try {
+        // Create an array of promises for the parallel operations
+        const operations = [
+            asyncOperation('A', 1000),
+            asyncOperation('B', 2000),
+            asyncOperation('C', 1500)
+        ];
+
+        const results = await Promise.all(operations);
+
+        console.log('Parallel operations results with async/await:', results);
+    } catch (error) {
+        console.error('Error in parallel operations with async/await:', error);
+    }
+};
+
+performParallelOperationsWithAsyncAwait();

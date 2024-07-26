@@ -1,0 +1,53 @@
+import React, { useState, useEffect } from 'react';
+
+const DataFetchingComponent = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+   
+    const fetchData = async () => {
+      try {
+        const response = await fetch("emter the url of the web page needed to be loaded here");
+        const result = await response.json();
+        setData(result);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+
+    fetchData();
+
+ 
+    return () => {
+      console.log(' cleanup any ongoing requests.');
+    };
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      
+      document.title = `Post: ${data.title}`;
+    }
+
+  
+    return () => {
+      document.title = 'React App';
+    };
+  }, [data]); 
+
+  return (
+    <div>
+      {loading ? <p>Loading...</p> : <div>
+        <h1>{data.title}</h1>
+        <p>{data.body}</p>
+      </div>}
+    </div>
+  );
+};
+
+export default DataFetchingComponent;
+

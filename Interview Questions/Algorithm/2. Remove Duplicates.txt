@@ -1,0 +1,7 @@
+1. Start with two pointers, i and j. Set i to 0  and j to 1.
+2. Use j to iterate through the array from the second element to the end.
+3. Compare the element at index j with the element at index I.
+4. If the element at j is different from the element at i, increment i and update the element at i with the element at j.
+5. If the element at j is the same as the element at i, simply increment j and continue.
+6. Continue this process until j reaches the end of the array.
+7. The length of the array without duplicates will be i + 1 because I returns zero.
